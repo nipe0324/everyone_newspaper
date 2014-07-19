@@ -24,7 +24,7 @@ group :test do
 	gem 'capybara'					 # Describe tests like English
 	gem 'factory_girl_rails' # for test to create models easily
 	gem 'cucumber-rails', :require => false # Use Cucumber for tests
-  gem 'database_cleaner', github: 'bmabey/database_cleaner' # for cucumber
+	gem 'database_cleaner', github: 'bmabey/database_cleaner' # for cucumber
 
   # For guard
   gem 'rb-fsevent', :require => false
