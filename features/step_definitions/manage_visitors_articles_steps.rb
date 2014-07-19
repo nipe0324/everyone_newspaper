@@ -7,5 +7,5 @@ When(/^I enter valid information \("(.*?)", "(.*?)", "(.*?)"\)$/) do |name, emai
   fill_in "メールアドレス",	with: email
   fill_in "パスワード",   		with: password
   fill_in "確認用パスワード", 	with: password
-  click_button submit
+  click_button "アカウントを作成する"
 end
