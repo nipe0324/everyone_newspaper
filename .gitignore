@@ -14,3 +14,12 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore otehr unneeded files.
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.idea
+.secret

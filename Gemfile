@@ -3,8 +3,27 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
+group :development, :test do
+	# Use sqlite3 as the database for Active Record
+	gem 'sqlite3'
+	# Use RSpec for tests
+	gem 'rspec-rails'
+end
+
+group :test do
+	gem 'selenium-webdriver' # be depended by Capybara
+	gem 'capybara'					 # Describe tests like English
+	gem 'factory_girl_rails' # for test to create models easily
+	gem 'cucumber-rails', :require => false # Use Cucumber for tests
+  gem 'database_cleaner', github: 'bmabey/database_cleaner' # for cucumber
+end
+
+group :production do
+	gem 'pg'							# use postgresql on Heroku
+	gem 'rails_12factor'	# run rails4 on Heroku
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
