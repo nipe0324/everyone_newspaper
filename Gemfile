@@ -9,6 +9,11 @@ group :development, :test do
 	gem 'sqlite3'
 	# Use RSpec for tests
 	gem 'rspec-rails'
+	# User Guard for auto tests of rspec and cucumber
+	gem 'guard-rspec'
+	gem 'guard-cucumber'
+	# Use Guard for auto reload browser
+	gem 'guard-livereload'
 end
 
 group :test do
@@ -17,6 +22,13 @@ group :test do
 	gem 'factory_girl_rails' # for test to create models easily
 	gem 'cucumber-rails', :require => false # Use Cucumber for tests
   gem 'database_cleaner', github: 'bmabey/database_cleaner' # for cucumber
+
+  # For guard
+  gem 'rb-fsevent', :require => false
+  gem 'terminal-notifier-guard' # Mac OS Xの通知センターを利用可能
+
+  # Coverage
+  gem 'simplecov', :require => false
 end
 
 group :production do
