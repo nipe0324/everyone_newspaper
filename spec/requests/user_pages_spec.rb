@@ -44,6 +44,7 @@ RSpec.describe "UserPages", :type => :request do
 
 		  	it { should have_title full_title(user.name) }
 		  	it { should have_content user.name }
+        it { should have_link "ログアウト" }
 		  	it { should have_selector("div.alert.alert-success", text: "ようこそ") }
   		end
 	  end

@@ -4,7 +4,7 @@ Feature:  View StaticPages (Home, About, Conatct)
   I want to know what this site is on Homepage, what this site is in detail on Aboutpage and how to contact on Contactpage
 
   Scenario: View Home page
-    Given I do not logged in
+    Given I do not login
     When I go to the home page
     Then I should see "みんなの新聞"
 

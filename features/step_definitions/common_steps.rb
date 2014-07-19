@@ -116,5 +116,13 @@ end
 
 
 ## Add Bymyself
-Given(/^I do not logged in$/) do
+Given(/^I do not login$/) do
+end
+
+Given(/^I just logined$/) do
+  user = FactoryGirl.create(:user)
+  visit login_path
+  fill_in "メールアドレス", with: user.email.upcase
+  fill_in "パスワード",      with: user.password
+  click_button "ログイン"
 end

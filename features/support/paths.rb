@@ -11,6 +11,8 @@ module NavigationHelpers
 
     when /the signup page/
       signup_path
+    when /the login page/
+      login_path
     
     # Add more page name => path mappings here
     
