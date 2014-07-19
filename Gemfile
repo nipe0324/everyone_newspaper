@@ -17,6 +17,10 @@ group :development, :test do
 	gem 'guard-cucumber'
 	# Use Guard for auto reload browser
 	gem 'guard-livereload'
+	# User spork for speed up of tests
+	gem 'spork-rails'
+	gem 'guard-spork'
+	gem 'childprocess'
 end
 
 group :test do
