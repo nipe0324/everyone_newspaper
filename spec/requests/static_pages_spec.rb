@@ -4,45 +4,28 @@ RSpec.describe "StaticPages", :type => :request do
 
 	let(:base_title) { "みんなの新聞" }
 
+	subject { page }
+
   describe "Home page" do 
-    it "should have the content 'みんなの新聞'" do
-    	visit home_path
-    	expect(page).to have_content("#{base_title}")
-    end
+  	before { visit root_path }
 
-    it "should have the base title" do
-    	visit home_path
-    	expect(page).to have_title("#{base_title}")
-    end
-
-    it "should NOT have a custom page title" do
-    	visit home_path
-    	expect(page).not_to have_title("| ホーム")
-    end
+    it { should have_content "#{base_title}" }
+    it { should have_title( full_title("") ) }
+    it { should_not have_title "| ホーム" }
   end
 
   describe "About page" do 
-    it "should have the content 'このサイトについて'" do
-    	visit about_path
-    	expect(page).to have_content('このサイトについて')
-    end
+  	before { visit about_path }
 
-    it "should have the title 'About'" do
-    	visit about_path
-    	expect(page).to have_title("このサイトについて | #{base_title}")
-    end
+    it { should have_content('このサイトについて') }
+  	it { should have_title( full_title("このサイトについて") ) }
   end
 
   describe "Contact page" do 
-    it "should have the content 'お問い合わせ'" do
-    	visit contact_path
-    	expect(page).to have_content('お問い合わせ')
-    end
+  	before { visit contact_path }
 
-    it "should have the title ''" do
-    	visit contact_path
-    	expect(page).to have_title("お問い合わせ | #{base_title}")
-    end
+  	it { should have_content("お問い合わせ") }
+  	it { should have_title( full_title("お問い合わせ") ) }
   end
 
 end
