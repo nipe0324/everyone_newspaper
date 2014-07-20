@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
 	# パスワード用のカラム
 	has_secure_password
 
+	# 関連
+	has_many :articles, dependent: :destroy
+
 	# 検証
 	validates :name,		presence: true, length: { maximum: 50 }
 	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },

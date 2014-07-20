@@ -89,13 +89,21 @@ RSpec.describe "UserPages", :type => :request do
 
   describe "profile(show)" do
   	let(:user) { FactoryGirl.create(:user) }
-  	before do
-      login user
-      visit user_path(user)
-    end
+    let!(:a1) { FactoryGirl.create(:article, user: user, title: "foo", content: "foo") }
+    let!(:a2) { FactoryGirl.create(:article, user: user, title: "bar", content: "bar") }
+
+  	before { login user }
 
   	it { should have_content user.name }
   	it { should have_title full_title(user.name) }
+
+    describe "articles" do
+      it { should have_content a1.title }
+      it { should have_content a1.content }
+      it { should have_content a2.title }
+      it { should have_content a2.content }
+      it { should have_content user.articles.count }
+    end
   end
 
   describe "setting(edit)" do

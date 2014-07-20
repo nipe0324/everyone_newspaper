@@ -9,4 +9,15 @@
 			</h1>
 		</section>
 	</aside>
+
+	<div class="span8">
+		<% if @user.articles.any? %>
+			<h3>投稿した記事 : <%= @user.articles.count %>件</h3>
+			<ol class="articles">
+				<%= render @articles %>
+			</ol>
+			<%= will_paginate @articles %>
+		<% end %>
+	</div><!-- /.span8 -->
+
 </div><!--/.row -->

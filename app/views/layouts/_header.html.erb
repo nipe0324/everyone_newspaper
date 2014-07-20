@@ -5,9 +5,9 @@
       <nav>
         <ul class="nav pull-right">
           <% if login? %>
-          <li><%= User.encrypt("vGdZPH--awUyN1XnV7v79A") %></li>          
           <li><%= link_to "記事を書く", "#" %></li>
-          <li><%= link_to "新聞一覧", "#" %></li>
+          <li><%= link_to "新聞を読む", "#" %></li>
+          <li style="margin-top:5px;"><%= avatar_for(current_user, { size: 30 }) %></li>
           <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               アカウント <b class="caret"></b>

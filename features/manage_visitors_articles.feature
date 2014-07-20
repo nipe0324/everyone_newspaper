@@ -6,20 +6,20 @@ Feature:  Manage Visitor's Articles
 
 
   # Login
-  Scenario: Valid Login
-    Given I have 1 account
+  # See the list of my articles
+  Scenario: Valid login and see the list of my articles
+    Given I have 1 article the title of which is "わたしが書いたアーティクル"
     And I am on "the login page"
     When I enter login information by "testuser@example.com" and "foobar"
     Then I should see "testuser"
+    And I should see "わたしが書いたアーティクル"
 
-  Scenario: Invalid Login
+  Scenario: Invalid login
     Given I have 1 account
     And I am on "the login page"
     When I enter login information by "invalid@example.com" and "invalid"
     Then I should see "ログイン"
 
-  # See the list of my articles
-  # Create an article
   # Edit an article I posted
   # Delete an article I posted
 
@@ -30,13 +30,13 @@ Feature:  Manage Visitor's Articles
     Then I should see "みんなの新聞"
 
   # Sign Up
-  Scenario: Valid Sign Up
+  Scenario: Valid sign up
     Given I have no account
     And I am on "the signup page"
     When I enter signup information by "testuser" and "testuser@example.com" and "foobar"
     Then I should see "testuser"
 
-  Scenario: Invalid Sign Up
+  Scenario: Invalid sign up
     Given I have no account
     And I am on "the signup page"
     When I enter signup information by "t" and "testuser@example.com" and "f"
@@ -44,22 +44,22 @@ Feature:  Manage Visitor's Articles
     And I should see "エラー"
 
   # Edit My Account
-  Scenario: Edit Success
+  Scenario: Edit success
     Given I already logined as "testuser@example.com" and "foobar"
     And Im on the update profile page of "testuser@example.com"
     When I update profile information by "changed" and "testuser@example.com" and "foobar"
     Then I should see "changed"
 
-  Scenario: Edit Failure
+  Scenario: Edit failure
     Given I already logined as "testuser@example.com" and "foobar"
     And Im on the update profile page of "testuser@example.com"
     When I update profile information by "invalid" and "valid_name@example.com" and ""
     Then I should see "エラー"
 
   # Delete My Account
-  Scenario: Delete Success
+  Scenario: Delete success
     Given I already logined as "testuser@example.com" and "foobar"
-    And Im on the profile page of "testuser@example.com"
+    And Im on the update profile page of "testuser@example.com"
     When I follow "削除する"
     Then I should be on the home page
-    And I should see "ご利用ありがとうござました。"
+    And I should see "ご利用"

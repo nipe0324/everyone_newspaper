@@ -9,4 +9,10 @@ FactoryGirl.define do
 			admin true
 		end
 	end
+
+	factory :article do
+		title "title"
+		content "content"
+		user
+	end
 end

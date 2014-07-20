@@ -14,6 +14,7 @@ RSpec.describe User, :type => :model do
 	it { should respond_to :remember_token }
 	it { should respond_to :authenticate }
 	it { should respond_to :admin }
+	it { should respond_to :articles }
 
 
 	it { should be_valid }
@@ -87,11 +88,11 @@ RSpec.describe User, :type => :model do
   	before { @user.save }
   	let(:found_user) { User.find_by(email: @user.email) }
 
-  	describe "with valid password" do
+  	context "with valid password" do
   		it { should eq found_user.authenticate(@user.password) }
   	end
 
-  	describe "with invalid password" do
+  	context "with invalid password" do
   		let(:user_for_invalid_password) { found_user.authenticate("invalid") }
 
   		it { should_not eq user_for_invalid_password }
@@ -110,6 +111,29 @@ RSpec.describe User, :type => :model do
   	end
 
   	it { should be_admin }
+  end
+
+  describe "article associations" do
+  	before { @user.save }
+  	let!(:older_article) do
+  		FactoryGirl.create(:article, user: @user, created_at: 1.day.ago)
+  	end
+  	let!(:newer_article) do
+  		FactoryGirl.create(:article, user: @user, created_at: 1.hour.ago)
+  	end
+
+  	it "should have the right article in the right order" do
+  		expect(@user.articles.to_a).to eq [newer_article, older_article]
+  	end
+
+  	it "should destroy associated articles" do
+  		articles = @user.articles.to_a
+  		@user.destroy
+  		expect(articles).not_to be_empty
+  		articles.each do |article|
+  			expect(Article.where(id: article.id)).to be_empty
+  		end
+  	end
   end
 
 end

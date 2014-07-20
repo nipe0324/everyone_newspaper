@@ -1,3 +1,4 @@
+
 Given(/^I have no account$/) do
 	User.delete_all
 end
@@ -5,6 +6,12 @@ end
 Given(/^I have (\d+) account$/) do |number|
   User.create(name: "testuser", email: "testuser@example.com",
     password: "foobar", password_confirmation: "foobar")
+end
+
+Given(/^I have (\d+) article the title of which is "(.*?)"$/) do |number, title|
+  user = User.create(name: "testuser2", email: "testuser@example.com",
+    password: "foobar", password_confirmation: "foobar")
+  user.articles.create!(title: title, content: "dummy")
 end
 
 Given(/^I do not login$/) do
