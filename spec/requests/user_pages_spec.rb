@@ -4,7 +4,44 @@ RSpec.describe "UserPages", :type => :request do
 
 	subject { page }
 
-  describe "singup" do
+  describe "index" do
+    let(:admin) { FactoryGirl.create(:admin) }
+    before do
+      login admin
+      visit users_path
+    end
+
+    it { should have_title "ユーザ一覧" }
+    it { should have_content "ユーザ一覧" }
+
+    describe "pagination" do
+      before(:all) { 30.times { FactoryGirl.create(:user) } }
+      after(:all)  { User.delete_all }
+
+      it { should have_selector('div.pagination') }
+
+      it "should list each user" do
+        User.paginate(page: 1).each do |user|
+          expect(page).to have_selector("li", text: user.name)
+        end
+      end
+    end
+
+    describe "delete links" do
+      before(:all) { 30.times { FactoryGirl.create(:user) } }
+      after(:all)  { User.delete_all }
+
+      it { should have_link('削除', href: user_path(User.first)) }
+      it "should be able to delete another user" do
+        expect do
+          click_link('削除', match: :first)
+        end.to change(User, :count).by(-1)
+      end
+      it { should_not have_link('削除', href: user_path(admin)) }
+    end
+  end
+
+  describe "singup(new)" do
   	before { visit signup_path }
 
   	it { should have_content "ユーザアカウント登録" }
@@ -48,14 +85,67 @@ RSpec.describe "UserPages", :type => :request do
 		  	it { should have_selector("div.alert.alert-success", text: "ようこそ") }
   		end
 	  end
-
   end
 
-  describe "profile page" do
+  describe "profile(show)" do
   	let(:user) { FactoryGirl.create(:user) }
-  	before { visit user_path(user) }
+  	before do
+      login user
+      visit user_path(user)
+    end
 
   	it { should have_content user.name }
   	it { should have_title full_title(user.name) }
+  end
+
+  describe "setting(edit)" do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      login user
+      visit edit_user_path(user)
+    end
+
+    describe "page" do
+      it { should have_title "プロフィール更新" }
+      it { should have_content "プロフィール更新" }
+      it { should have_content "削除する" }
+    end
+
+    context "with invalid information" do
+      before { click_button "更新する" }
+      it { should have_content "エラー" }
+    end
+
+    context "with valid information" do
+      let(:new_name) { "New Name" }
+      let(:new_email) { "new@example.com" }
+      before do
+        fill_in "名前",         with: new_name
+        fill_in "メールアドレス",  with: new_email
+        fill_in "パスワード",      with: user.password
+        fill_in "確認用パスワード",   with: user.password
+        click_button "更新する"
+      end
+
+      it { should have_title new_name }
+      it { should have_success_message "" }
+      specify { expect(user.reload.name).to eq new_name }
+      specify { expect(user.reload.email).to eq new_email }
+    end
+
+    describe "delete account" do
+      it "should be able to delete my account" do
+        expect do
+          click_link('削除する')
+        end.to change(User, :count).by(-1)
+      end
+
+      context "after delete" do
+        before { click_link "削除する" }
+
+        it { should have_title "みんなの新聞" }
+        it { should have_content "ご利用ありがとうございました。" }
+      end
+    end
   end
 end

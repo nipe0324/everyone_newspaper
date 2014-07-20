@@ -13,10 +13,12 @@ RSpec.describe User, :type => :model do
 	it { should respond_to :password_confirmation }
 	it { should respond_to :remember_token }
 	it { should respond_to :authenticate }
+	it { should respond_to :admin }
+
 
 	it { should be_valid }
 
-	context "when name is NOT present" do
+	context "when name is not present" do
 		before { @user.name = " " }
 		it { should_not be_valid }
 	end
@@ -27,7 +29,7 @@ RSpec.describe User, :type => :model do
 	end
 
 
-	context "when email is NOT present" do
+	context "when email is not present" do
 		before { @user.email = " " }
 		it { should_not be_valid }
 	end
@@ -100,4 +102,14 @@ RSpec.describe User, :type => :model do
     before { @user.save }
     it { expect(@user.remember_token).not_to be_blank }
   end
+
+  context "with admin attribute set to true" do
+  	before do
+  		@user.save!
+  		@user.toggle!(:admin)
+  	end
+
+  	it { should be_admin }
+  end
+
 end

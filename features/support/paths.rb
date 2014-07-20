@@ -14,8 +14,6 @@ module NavigationHelpers
     when /the login page/
       login_path
     
-    # Add more page name => path mappings here
-    
     else
       raise "Can't find mapping from \"#{page_name}\" to a path."
     end

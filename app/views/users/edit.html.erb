@@ -1,0 +1,15 @@
+<% provide(:title, 'プロフィール更新') %>
+<h1>プロフィール更新</h1>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for @user do |f| %>
+      <%= render 'fields', f: f %>
+			<%= f.submit "更新する", class: "btn btn-large btn-success" %>
+		<% end %>
+			    <%= link_to "削除する", @user, method: :delete,
+  			data: { confirm: "ユーザ#{@user.name}を削除してもよろしいですか？"},
+  			class: "btn btn-large btn-danger" %>
+
+	</div><!-- /.span6 .offset3 -->
+</div><!-- /.row -->

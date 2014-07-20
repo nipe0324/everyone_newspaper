@@ -6,6 +6,11 @@ gem 'rails', '4.1.4'
 
 # Use Twitter Bootstarp for design
 gem 'bootstrap-sass'
+# For pagination
+gem 'will_paginate'
+
+# User Facor to creating data fo test
+gem 'faker'
 
 group :development, :test do
 	# Use sqlite3 as the database for Active Record

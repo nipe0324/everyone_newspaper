@@ -1,0 +1,9 @@
+<li>
+  <%= avatar_for user, size: 52 %>
+  <%= link_to user.name, user %>
+  | <%= user.email %>
+  <% if current_user.admin? && !current_user?(user) %>
+  | <%= link_to "削除", user, method: :delete,
+  	data: { confirm: "ユーザ#{user.name}を削除してもよろしいですか？"} %>
+  <% end %>
+</li>

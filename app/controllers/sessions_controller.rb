@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 		if user && user.authenticate(params[:session][:password])
 			# ユーザをログインさせ、ユーザーページにリダイレクト
 			login user
-			redirect_to user
+			redirect_back_or user
 		else
 			# エラーメッセージを表示し、ログインページをRendre
 			flash.now[:error] = "ユーザID・パスワードに誤りがあるか、登録されていません。"

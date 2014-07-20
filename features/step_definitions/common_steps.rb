@@ -3,7 +3,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 # Commonly used webrat steps
 # http://github.com/brynary/webrat
 
-Given /^I am on (.+)$/ do |page_name|
+Given /^I am on "(.+)"$/ do |page_name|
   visit path_to(page_name)
 end
 
@@ -114,15 +114,3 @@ Then /^I should be on (.+)$/ do |page_name|
   URI.parse(current_url).path.should == path_to(page_name)
 end
 
-
-## Add Bymyself
-Given(/^I do not login$/) do
-end
-
-Given(/^I just logined$/) do
-  user = FactoryGirl.create(:user)
-  visit login_path
-  fill_in "メールアドレス", with: user.email.upcase
-  fill_in "パスワード",      with: user.password
-  click_button "ログイン"
-end
