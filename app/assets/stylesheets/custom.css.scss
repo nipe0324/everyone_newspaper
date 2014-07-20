@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "bootstrap-responsive";
 
 /***************************************
   ミックスインや変数など
@@ -19,8 +20,10 @@ html {
   overflow-y: scroll;
 }
 
-body {
-  padding-top: 60px;
+@media screen and (min-width: 979px) {
+  body {
+    padding-top: 60px;
+  }
 }
 
 section {
@@ -126,7 +129,7 @@ aside {
 /* フォーム */
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
-  width: 80%;
+  width: 100%;
   padding: 10px;
   margin-bottom: 10px;
   @include box_sizing;
@@ -195,17 +198,17 @@ form {
     color: $grayLight;
   }
 }
-.avatar {
-  float: left;
-  margin-right: 10px;
-}
-aside {
-  textarea {
-    height: 100px;
-    margin-bottom: 5px;
-  }
-}
 
+/* ログイントップ */
+#login_info {
+  font-size: 13px;
+  padding: 10px;
+  border: 1px dashed #181818;
+  font-weight: normal;
+  background: #fffcd6;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
 /***************************************
 	フッター
 ****************************************/

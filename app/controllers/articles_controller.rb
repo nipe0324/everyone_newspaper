@@ -1,8 +1,12 @@
 class ArticlesController < ApplicationController
   # ログインしてるユーザだけがアクセスできる
-  before_action :logined_user
+  before_action :logined_user, except: :index
   # 正しくないユーザはアクセスできない
-  before_action :correct_user
+  before_action :correct_user, except: :index
+
+  def index
+    @articles = Article.all
+  end
 
   def new
   	@article = @user.articles.build

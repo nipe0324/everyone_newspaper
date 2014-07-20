@@ -4,15 +4,16 @@ Rails.application.routes.draw do
   match '/about', to: 'static_pages#about', via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
 
-  # User Pages
+  # User Pages & Article Pages
   resources :users do
     resources :articles, except: [:index, :show]
   end
+
   resource :sessions, only: [:new, :create, :destroy]
   match '/signup',	to: 'users#new', via: 'get'
   match '/login',		to: 'sessions#new', via: 'get'
   match '/logout',	to: 'sessions#destroy', via: 'delete'
 
-  # Article Pages
+  match '/newspaper',  to: 'articles#index', via: 'get'
 
 end
