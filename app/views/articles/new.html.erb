@@ -1,11 +1,11 @@
 <% provide(:title, '記事を投稿') %>
 <div class="row">
-	<aside class="span4">
+	<aside class="span3">
 		<section>
 			<%= render 'shared/user_info' %>
 		</section>
 		<section>
-			<%= link_to "戻る", @user, class: "btn btn-large" %>
+			<%= link_to "戻る", @user, class: "btn" %>
 		</section>
 	</aside>
 
@@ -13,7 +13,7 @@
 		<h3>記事を投稿</h3>
 		<%= form_for [@user, @article] do |f| %>
       <%= render 'fields', f: f %>
-			<%= f.submit "記事を投稿する", class: "btn btn-large btn-success" %>
+			<%= f.submit "記事を投稿する", class: "btn btn-success" %>
 		<% end %>
 	</div><!-- /.span8 -->
 </div><!--/.row -->

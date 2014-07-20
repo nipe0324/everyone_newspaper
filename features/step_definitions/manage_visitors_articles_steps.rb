@@ -15,7 +15,7 @@ end
 Given(/^I do not login$/) do
 end
 
-Given(/^I already logined as "(.*?)" and "(.*?)"$/) do |email, password|
+Given(/^I already logined as "(.*?)", "(.*?)"$/) do |email, password|
   user = User.create(name: "testuser", email: email,
     password: password, password_confirmation: password)
 
@@ -46,7 +46,7 @@ Given(/^Im on the profile page of "(.*?)"$/) do |email|
   visit user_path user
 end
 
-When(/^I enter signup information as "(.*?)" and "(.*?)" and "(.*?)"$/) do |name, email, password|
+When(/^I enter signup information as "(.*?)", "(.*?)", "(.*?)"$/) do |name, email, password|
   fill_in "名前",      		with: name
   fill_in "メールアドレス",	with: email
   fill_in "パスワード",   		with: password
@@ -54,19 +54,19 @@ When(/^I enter signup information as "(.*?)" and "(.*?)" and "(.*?)"$/) do |name
   click_button "アカウントを作成する"
 end
 
-When(/^I enter article information as "(.*?)" and "(.*?)"$/) do |title, content|
+When(/^I enter article information as "(.*?)", "(.*?)"$/) do |title, content|
   fill_in "タイトル",  with: title
   fill_in "本文",      with: content
   click_button "記事を投稿する"
 end
 
-When(/^I enter login information as "(.*?)" and "(.*?)"$/) do |email, password|
+When(/^I enter login information as "(.*?)", "(.*?)"$/) do |email, password|
   fill_in "メールアドレス",	with: email
   fill_in "パスワード",   		with: password
   click_button "ログイン"
 end
 
-When(/^I update profile information as "(.*?)" and "(.*?)" and "(.*?)"$/) do |name, email, password|
+When(/^I update profile information as "(.*?)", "(.*?)", "(.*?)"$/) do |name, email, password|
   fill_in "名前", with: name
   fill_in "メールアドレス", with: email.upcase
   fill_in "パスワード",      with: password

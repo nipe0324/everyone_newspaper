@@ -114,8 +114,8 @@ RSpec.describe "UserPages", :type => :request do
     end
 
     describe "page" do
-      it { should have_title "プロフィール更新" }
-      it { should have_content "プロフィール更新" }
+      it { should have_title "アカウント更新" }
+      it { should have_content "アカウント更新" }
       it { should have_content "削除する" }
     end
 

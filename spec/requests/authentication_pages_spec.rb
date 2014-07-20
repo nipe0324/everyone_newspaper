@@ -9,7 +9,7 @@ RSpec.describe "AuthenticationPages", :type => :request do
 		before { login user }
 
 		it { should have_title user.name }
-		it { should have_link "プロフィール", href: user_path(user) }
+		it { should have_link "マイページ", href: user_path(user) }
 		it { should have_link "設定", href: edit_user_path(user) }
 		it { should have_link "ログアウト", href: logout_path }
 		it { should_not have_link "ログイン", href: login_path }
@@ -78,7 +78,7 @@ RSpec.describe "AuthenticationPages", :type => :request do
 
 				context "after login" do
 					it "should render the desired protected page" do
-						expect(page).to have_title "プロフィール更新"
+						expect(page).to have_title "アカウント更新"
 					end
 				end
 			end
@@ -98,7 +98,7 @@ RSpec.describe "AuthenticationPages", :type => :request do
 
 			context "submitting a GET request to the Users#edit action" do
 				before { get edit_user_path(wrong_user) }
-				specify { expect(response.body).not_to match("プロフィール更新") }
+				specify { expect(response.body).not_to match("アカウント更新") }
 				specify { expect(response).to redirect_to(root_url) }
 			end
 
@@ -175,7 +175,7 @@ RSpec.describe "AuthenticationPages", :type => :request do
 			before { login user }
 
 			it { should have_title user.name }
-			it { should have_link("プロフィール", href: user_path(user)) }
+			it { should have_link("マイページ", href: user_path(user)) }
 			it { should have_link("設定", href: edit_user_path(user)) }
 			it { should have_link("ログアウト", href: logout_path) }
 			it { should_not have_link("ログイン", href: login_path) }
@@ -192,7 +192,7 @@ RSpec.describe "AuthenticationPages", :type => :request do
 
 			it { should have_title admin.name }
 			it { should have_link("ユーザ一覧", href: users_path) }			
-			it { should have_link("プロフィール", href: user_path(admin)) }
+			it { should have_link("マイページ", href: user_path(admin)) }
 			it { should have_link("設定", href: edit_user_path(admin)) }
 			it { should have_link("ログアウト", href: logout_path) }
 			it { should_not have_link("ログイン", href: login_path) }
