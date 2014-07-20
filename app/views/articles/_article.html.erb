@@ -3,5 +3,8 @@
 	<span class="content"><%= article.content %></span>
 	<span class="timestamp">
 		投稿日：<%= time_ago_in_words article.created_at %>前
+		| <%= link_to "編集", edit_user_article_path(@user, article) %> 
+    | <%= link_to "削除", user_article_path(@user, article), method: :delete,
+  		data: { confirm: "タイトル#{article.title}を削除してもよろしいですか？"} %>
 	</span>
 </li>

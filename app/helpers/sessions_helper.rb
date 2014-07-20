@@ -38,4 +38,32 @@ module SessionsHelper
 	def store_location
 		session[:return_to] = request.url
 	end
+
+	# ログインしているか
+  def logined_user
+    unless login?
+      store_location
+      redirect_to login_url, notice: "ログインをして下さい。"
+    end
+  end
+
+  # 正しいユーザか
+  def correct_user
+  	if params[:user_id]
+	  	@user = User.find(params[:user_id])
+	  elsif params[:id]
+	  	@user = User.find(params[:id])	if params[:id]
+	  end
+    redirect_to root_path unless current_user?(@user)
+  end
+
+  def admin_user
+    redirect_to root_path unless current_user.admin?
+  end
+
+  def correct_or_admin_user
+  	@user = User.find(params[:id])	if params[:id]
+  	@user = User.find(params[:user_id])	if params[:user_id]    
+    redirect_to root_path unless current_user?(@user) || current_user.admin?
+  end
 end

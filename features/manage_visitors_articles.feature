@@ -1,27 +1,66 @@
 Feature:  Manage Visitor's Articles
   In order to manage my articles I posted
   As a visitor
-  I want to login, see the list of my articles, create/edit/delete articles
+  I want to login, see the list of my articles, create/update/delete articles
     and of cource logout, signup, edit/delete my account.
 
 
   # Login
   # See the list of my articles
   Scenario: Valid login and see the list of my articles
-    Given I have 1 article the title of which is "わたしが書いたアーティクル"
+    Given I have an account as "testuser", "testuser@example.com", "foobar"
+    And I have 1 article the title of which is "title" as "testuser@example.com"
     And I am on "the login page"
-    When I enter login information by "testuser@example.com" and "foobar"
+    When I enter login information as "testuser@example.com" and "foobar"
     Then I should see "testuser"
-    And I should see "わたしが書いたアーティクル"
+    And I should see "title"
 
   Scenario: Invalid login
-    Given I have 1 account
+    Given I have an account as "testuser", "test@example.com", "foobar"
     And I am on "the login page"
-    When I enter login information by "invalid@example.com" and "invalid"
+    When I enter login information as "invalid@example.com" and "invalid"
     Then I should see "ログイン"
 
-  # Edit an article I posted
+  # Create an article
+  Scenario: Create valid articles
+    Given I already logined as "testuser@example.com" and "foobar"
+    And Im on the new article page of "testuser@example.com"
+    When I enter article information as "title" and "content"
+    Then I should see "title"
+    And I should see "content"
+
+  Scenario: Create invalid articles
+    Given I already logined as "testuser@example.com" and "foobar"
+    And Im on the new article page of "testuser@example.com"
+    When I enter article information as "" and ""
+    Then I should see "エラー"
+
+  # Update an article I posted
+  Scenario: Update valid articles
+    Given I already logined as "testuser@example.com" and "foobar"
+    And I have 1 article the title of which is "title" as "testuser@example.com"
+    And Im on the edit article page of which is "title" as "testuser@example.com"
+    When I enter article information as "new_title" and "new_content"
+    Then I should see "new_title"
+    And I should see "new_content"
+
+  Scenario: Update invalid articles
+    Given I already logined as "testuser@example.com" and "foobar"
+    And I have 1 article the title of which is "title" as "testuser@example.com"
+    And Im on the edit article page of which is "title" as "testuser@example.com"
+    When I enter article information as "" and ""
+    Then I should see "エラー"
+    And I should not see "new_title"
+    And I should not see "new_content"
+
   # Delete an article I posted
+  Scenario: Update invalid articles
+    Given I already logined as "testuser@example.com" and "foobar"
+    And I have 1 article the title of which is "title" as "testuser@example.com"
+    And Im on the profile page of "testuser@example.com"
+    When I follow "削除"
+    Then I should not see "title"
+    And I should see "testuser@example.com"
 
   # Logout
   Scenario: Logout
@@ -33,13 +72,13 @@ Feature:  Manage Visitor's Articles
   Scenario: Valid sign up
     Given I have no account
     And I am on "the signup page"
-    When I enter signup information by "testuser" and "testuser@example.com" and "foobar"
+    When I enter signup information as "testuser" and "testuser@example.com" and "foobar"
     Then I should see "testuser"
 
   Scenario: Invalid sign up
     Given I have no account
     And I am on "the signup page"
-    When I enter signup information by "t" and "testuser@example.com" and "f"
+    When I enter signup information as "t" and "testuser@example.com" and "f"
     Then I should see "ユーザアカウント登録"
     And I should see "エラー"
 
@@ -47,13 +86,13 @@ Feature:  Manage Visitor's Articles
   Scenario: Edit success
     Given I already logined as "testuser@example.com" and "foobar"
     And Im on the update profile page of "testuser@example.com"
-    When I update profile information by "changed" and "testuser@example.com" and "foobar"
+    When I update profile information as "changed" and "testuser@example.com" and "foobar"
     Then I should see "changed"
 
   Scenario: Edit failure
     Given I already logined as "testuser@example.com" and "foobar"
     And Im on the update profile page of "testuser@example.com"
-    When I update profile information by "invalid" and "valid_name@example.com" and ""
+    When I update profile information as "invalid" and "valid_name@example.com" and ""
     Then I should see "エラー"
 
   # Delete My Account

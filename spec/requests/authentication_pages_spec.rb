@@ -19,8 +19,9 @@ RSpec.describe "AuthenticationPages", :type => :request do
 
 		context "for non-signed-in users" do
 			let(:user) { FactoryGirl.create(:user) }
+			let(:article) { FactoryGirl.create(:article, user: user) }
 
-			context "visiting the user index" do
+			context "visiting the users page" do
 				before { visit users_path }
 				it { should have_title "ログイン" }
 			end
@@ -30,16 +31,43 @@ RSpec.describe "AuthenticationPages", :type => :request do
 				it { should have_title "ログイン" }
 			end
 
-			context "visiting the edit page" do
+			context "visiting the edit user page" do
 				before { visit edit_user_path(user) }
 				it { should have_title "ログイン" }
 			end
 
-			context "submitting to the update action" do
+			context "visiting the new article page" do
+				before { visit new_user_article_path(user, article) }
+				it { should have_title "ログイン" }
+			end
+
+			context "visiting the edit article page" do
+				before { visit edit_user_article_path(user, article) }
+				it { should have_title "ログイン" }
+			end
+
+			context "submitting to the user#update action" do
 				before { patch user_path(user) }
 				specify { expect(response).to redirect_to login_path }
 			end
 
+			context "submitting to the article#create action" do
+				before { post user_articles_path(user) }
+				specify { expect(response).to redirect_to login_path }
+			end
+
+			context "submitting to the article#update action" do
+				before { patch user_article_path(user, article) }
+				specify { expect(response).to redirect_to login_path }
+			end
+
+			context "submitting to the article#delete action" do
+				before { delete user_article_path(user, article) }
+				specify { expect(response).to redirect_to login_path }
+			end
+
+
+			# フレンドリーフォワーディング
 			context "when attempting to visit a protected page" do
 				before do
 					visit edit_user_path(user)
@@ -59,6 +87,7 @@ RSpec.describe "AuthenticationPages", :type => :request do
 		context "as wrong user" do
 			let(:user) { FactoryGirl.create(:user) }
 			let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+			let(:article) { FactoryGirl.create(:article, user: user) }
 			before { login user, no_capybara: true }
 
 			context "submitting a GET request to the Users#show action" do
@@ -82,6 +111,22 @@ RSpec.describe "AuthenticationPages", :type => :request do
 				before { delete user_path(wrong_user) }
 				specify { expect(response).to redirect_to(root_url) }
 				specify { expect(response.body).not_to match("ご利用ありがとうございました。")}
+			end
+
+			context "submitting a GET request to the Article#edit action" do
+				before { get edit_user_article_path(wrong_user, article) }
+				specify { expect(response.body).not_to match("記事を投稿") }
+				specify { expect(response).to redirect_to(root_url) }
+			end
+
+			context "submitting a PATCH request to the Users#update action" do
+				before { patch user_article_path(wrong_user, article) }
+				specify { expect(response).to redirect_to(root_url) }
+			end
+
+			context "submitting a DELETE request to the Users#destroy action" do
+				before { delete user_article_path(wrong_user, article) }
+				specify { expect(response).to redirect_to(root_url) }
 			end
 		end
 
@@ -157,6 +202,5 @@ RSpec.describe "AuthenticationPages", :type => :request do
 				it { should have_link "ログイン" }
 			end
 		end
-
 	end
 end

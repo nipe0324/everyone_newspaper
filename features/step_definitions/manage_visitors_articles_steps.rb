@@ -3,14 +3,12 @@ Given(/^I have no account$/) do
 	User.delete_all
 end
 
-Given(/^I have (\d+) account$/) do |number|
-  User.create(name: "testuser", email: "testuser@example.com",
-    password: "foobar", password_confirmation: "foobar")
+Given(/^I have an account as "(.*?)", "(.*?)", "(.*?)"$/) do |name, email, password|
+  User.create!(name: name, email: email, password: password, password_confirmation: password)
 end
 
-Given(/^I have (\d+) article the title of which is "(.*?)"$/) do |number, title|
-  user = User.create(name: "testuser2", email: "testuser@example.com",
-    password: "foobar", password_confirmation: "foobar")
+Given(/^I have (\d+) article the title of which is "(.*?)" as "(.*?)"$/) do |number, title, email|
+  user = User.find_by(email: email)
   user.articles.create!(title: title, content: "dummy")
 end
 
@@ -27,6 +25,17 @@ Given(/^I already logined as "(.*?)" and "(.*?)"$/) do |email, password|
   click_button "ログイン"
 end
 
+Given(/^Im on the new article page of "(.*?)"$/) do |email|
+  user = User.find_by(email: email)
+  visit new_user_article_path(user)
+end
+
+Given(/^Im on the edit article page of which is "(.*?)" as "(.*?)"$/) do |title, email|
+  user = User.find_by(email: email)
+  article = Article.find_by(title: title)
+  visit new_user_article_path(user, article)
+end
+
 Given(/^Im on the update profile page of "(.*?)"$/) do |email|
   user = User.find_by(email: email)
   visit edit_user_path user
@@ -37,7 +46,7 @@ Given(/^Im on the profile page of "(.*?)"$/) do |email|
   visit user_path user
 end
 
-When(/^I enter signup information by "(.*?)" and "(.*?)" and "(.*?)"$/) do |name, email, password|
+When(/^I enter signup information as "(.*?)" and "(.*?)" and "(.*?)"$/) do |name, email, password|
   fill_in "名前",      		with: name
   fill_in "メールアドレス",	with: email
   fill_in "パスワード",   		with: password
@@ -45,14 +54,19 @@ When(/^I enter signup information by "(.*?)" and "(.*?)" and "(.*?)"$/) do |name
   click_button "アカウントを作成する"
 end
 
+When(/^I enter article information as "(.*?)" and "(.*?)"$/) do |title, content|
+  fill_in "タイトル",  with: title
+  fill_in "本文",      with: content
+  click_button "記事を投稿する"
+end
 
-When(/^I enter login information by "(.*?)" and "(.*?)"$/) do |email, password|
+When(/^I enter login information as "(.*?)" and "(.*?)"$/) do |email, password|
   fill_in "メールアドレス",	with: email
   fill_in "パスワード",   		with: password
   click_button "ログイン"
 end
 
-When(/^I update profile information by "(.*?)" and "(.*?)" and "(.*?)"$/) do |name, email, password|
+When(/^I update profile information as "(.*?)" and "(.*?)" and "(.*?)"$/) do |name, email, password|
   fill_in "名前", with: name
   fill_in "メールアドレス", with: email.upcase
   fill_in "パスワード",      with: password

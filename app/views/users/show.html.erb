@@ -2,11 +2,10 @@
 <div class="row">
 	<aside class="span4">
 		<section>
-			<h1>
-				<%= avatar_for @user %>
-				<%= @user.name %>
-				<%= @user.email %>
-			</h1>
+			<%= render 'shared/user_info' %>
+		</section>
+		<section>
+			<%= link_to "記事を書く", new_user_article_path(@user), class: "btn btn-large btn-success" %>
 		</section>
 	</aside>
 

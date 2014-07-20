@@ -1,0 +1,7 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<%= f.label :title, "タイトル" %>
+<%= f.text_field :title %>
+
+<%= f.label :content, "本文" %>
+<%= f.text_area :content, placeholder: "記事の内容を入力して下さい", size: "1x10" %>

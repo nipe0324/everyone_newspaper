@@ -95,7 +95,7 @@ Then /^I should see "([^\"]*)"$/ do |text|
 end
 
 Then /^I should not see "([^\"]*)"$/ do |text|
-  response.should_not contain(text)
+  expect(page).not_to have_content(text)
 end
 
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
