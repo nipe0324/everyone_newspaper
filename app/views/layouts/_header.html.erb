@@ -4,8 +4,8 @@
       <%= link_to "みんなの新聞", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <% if login? %>
           <li><%= link_to "新聞を読む", newspaper_path %></li>
+          <% if login? %>
           <li><%= link_to "記事を書く", new_user_article_path(current_user) %></li>
           <li style="margin-top:5px;"><%= avatar_for(current_user, { size: 30 }) %></li>
           <li id="fat-menu" class="dropdown">

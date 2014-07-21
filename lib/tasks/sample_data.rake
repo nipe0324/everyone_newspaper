@@ -29,19 +29,23 @@ def make_users
 end
 
 def make_categories
-  categories = %w[一面 政治 スポーツ 科学 アート 娯楽 ネット]
+  categories = %w[表紙 政治 スポーツ 科学 アート 娯楽 ネット 広告]
   categories.each do |category|
     Category.create!(name: category)
   end
 end
 
 def make_articles
-  users = User.first(50)
+  users = User.all
   categories = Category.all
-  7.times do |i|
+
+  # 100記事作成
+  100.times do |i|
     title = Faker::Lorem.words(3).join
     content = Faker::Lorem.paragraph(10)
-    users.each { |user| user.articles.create!(title: title, content: content,
-     category: categories[i-1]) }
+    user = users[ rand(users.count) ] # ユーザを無作為に選択
+    category = categories[ rand(categories.count) ] # カテゴリを無作為に選択
+    # 記事を作成
+    user.articles.create!(title: title, content: content, category: category)
   end
 end

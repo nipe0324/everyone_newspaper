@@ -9,8 +9,11 @@ gem 'bootstrap-sass'
 # For pagination
 gem 'will_paginate'
 
-# User Facor to creating data fo test
+# Use Facor to creating data fo test
 gem 'faker'
+
+# User masonry for layout of newspaper page
+gem 'masonry-rails'
 
 group :development, :test do
 	# Use sqlite3 as the database for Active Record

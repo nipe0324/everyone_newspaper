@@ -1,6 +1,7 @@
 <% provide(:title, "新聞") %>
 <h1>新聞</h1>
 
+<div>
 <ul class="nav nav-tabs" role="tablist" id="myTab">
   <% @categories.each do |category| %>
     <li><a href="#<%= category.name %>" role="tab" data-toggle="tab"><%= category.name %></a></li>
@@ -10,17 +11,29 @@
 <div class="tab-content">
   <% @categories.each do |category| %>
   <div class="tab-pane" id="<%= category.name %>">
-    <ul>
+    <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix">
       <% category.articles.each do |article| %>
-      <li><%= article.title %> by <%= article.user.name %></li>
+      <div class="box col<%= rand(3)+2 %> effect">
+        <p><%= article.title %> by <%= article.user.name %></p>
+        <p><%= article.content %></p>
+      </div>
       <% end %> 
-    </ul>
+    </div>
   </div>
   <% end %>
 </div>
 
 <script>
   $(function () {
+    // タブ化
     $('#myTab a:first').tab('show')
-  })
+
+    // スライド化
+    $('#masonry-container').masonry({
+      itemSelector: '.box',
+      columnWidth: 10,
+      gutterWidth: 1
+    });
+
+  });
 </script>
