@@ -25,10 +25,16 @@ RSpec.describe User, :type => :model do
 	end
 
 	context "when name is too long" do
-		before { @user.name = "a" * 51 }
-		it { should_not be_valid }
-	end
+    it "should be valid" do
+      @user.name = "a" * 50
+      expect(@user).to be_valid
+    end
 
+		it "should_not be valid due to too long name" do
+      @user.name = "a" * 51
+      expect(@user).not_to be_valid
+    end
+	end
 
 	context "when email is not present" do
 		before { @user.email = " " }
@@ -115,11 +121,12 @@ RSpec.describe User, :type => :model do
 
   describe "article associations" do
   	before { @user.save }
+    let(:category) { FactoryGirl.create(:category) }
   	let!(:older_article) do
-  		FactoryGirl.create(:article, user: @user, created_at: 1.day.ago)
+  		FactoryGirl.create(:article, user: @user, category: category, created_at: 1.day.ago)
   	end
   	let!(:newer_article) do
-  		FactoryGirl.create(:article, user: @user, created_at: 1.hour.ago)
+  		FactoryGirl.create(:article, user: @user, category: category, created_at: 1.hour.ago)
   	end
 
   	it "should have the right article in the right order" do

@@ -14,5 +14,10 @@ FactoryGirl.define do
 		title "title"
 		content "content"
 		user
+		category
+	end
+
+	factory :category do
+		sequence(:name) { |n| "category#{n}" }
 	end
 end

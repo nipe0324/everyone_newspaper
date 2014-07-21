@@ -16,4 +16,5 @@ Rails.application.routes.draw do
 
   match '/newspaper',  to: 'articles#index', via: 'get'
 
+  resources :categories, except: [:new, :show]
 end

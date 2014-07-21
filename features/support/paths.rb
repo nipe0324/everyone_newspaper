@@ -14,6 +14,12 @@ module NavigationHelpers
     when /the login page/
       login_path
     
+    when /the list of user page/
+      users_path
+
+    when /the list of category page/
+      categories_path
+
     else
       raise "Can't find mapping from \"#{page_name}\" to a path."
     end

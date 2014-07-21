@@ -1,0 +1,20 @@
+<% provide(:title, "カテゴリ一覧") %>
+<h1>カテゴリ一覧</h1>
+
+<%= form_for @category do |f| %>
+	<div class="field">
+		<%= f.label :name, "カテゴリ名" %>
+		<%= f.text_field :name, placeholder: "カテゴリ名を入れて下さい", style: "width: 40%" %>
+	</div>
+  <div class="actions">
+  	<% if @category.name.blank? %>
+	  	<%= f.submit "カテゴリ名を追加", class: "btn btn-success" %>
+	  <% else %>
+	  	<%= f.submit "カテゴリ名を更新", class: "btn btn-danger" %>
+	  <% end %>
+  </div>
+<% end %>
+
+<div class="categories">
+	<%= render @categories %>
+</div>

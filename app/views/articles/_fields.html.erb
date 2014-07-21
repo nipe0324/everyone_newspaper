@@ -3,5 +3,9 @@
 <%= f.label :title, "タイトル" %>
 <%= f.text_field :title %>
 
+<%= f.label :category_id, "カテゴリ" %>
+<%= f.select :category_id, Category.all.collect { |c| [c.name, c.id.to_i] },
+	prompt: "カテゴリを選択して下さい。" %>
+
 <%= f.label :content, "本文" %>
 <%= f.text_area :content, placeholder: "記事の内容を入力して下さい", size: "1x10" %>

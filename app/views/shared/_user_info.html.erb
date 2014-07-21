@@ -1,6 +1,6 @@
 <section>
 	<h1>
-		<%= avatar_for @user %>
+		<a href="<%= user_path(@user) %>"><%= avatar_for @user %></a>
 		<%= @user.name %>
 		<%= @user.email %>
 	</h1>

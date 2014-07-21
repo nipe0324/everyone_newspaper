@@ -6,7 +6,7 @@ RSpec.describe "Article pages", :type => :request do
 
   let(:user) { FactoryGirl.create(:user) }
   before { login user }
-
+  
   describe "create article" do
     before { visit new_article_path }
 

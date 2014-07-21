@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Article, :type => :model do
 
 	let(:user) { FactoryGirl.create(:user) }
-	before { @article = user.articles.build(title: "title", content: "content") }
+	let(:category) { FactoryGirl.create(:category) }
+	before { @article = user.articles.build(title: "title", content: "content", category: category) }
 
 	subject { @article }
 
@@ -12,6 +13,9 @@ RSpec.describe Article, :type => :model do
 	it { should respond_to :user_id }
 	it { should respond_to :user }
 	it { expect(user).to eq user }
+	it { should respond_to :category_id }
+	it { should respond_to :category }
+	it { expect(category).to eq category }
 
 	it { should be_valid }
 

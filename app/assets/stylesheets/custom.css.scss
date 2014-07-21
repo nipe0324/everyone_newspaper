@@ -138,7 +138,8 @@ input, textarea, select, .uneditable-input {
 form {
   input[type=text],
   input[type=email],
-  input[type=password] {
+  input[type=password],
+  select {
     height: 38px !important;
   }
   input[type=submit] {
@@ -176,8 +177,6 @@ form {
 }
 
 /* 記事一覧 */
-/* microposts */
-
 .articles {
   list-style: none;
   margin: 10px 0 0 0;
@@ -209,6 +208,28 @@ form {
   border-radius: 5px;
   margin-bottom: 20px;
 }
+
+/* カテゴリ一覧 */
+.categories {
+  .category {
+    p {
+      width: 50%;
+      font-size: 120%;
+      margin-top: 10px;
+      margin-bottom: -5px;
+      padding-top: 5px;
+      border-top: 1px solid #eaeaea;
+    }
+    em {
+      color: #777;
+      font-style: normal;
+    }
+    em a {
+      font-style: normal;
+    }
+  }
+}
+
 /***************************************
 	フッター
 ****************************************/

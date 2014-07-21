@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   before_action :correct_user, except: :index
 
   def index
-    @articles = Article.all
+    @categories = Category.all
   end
 
   def new
@@ -45,6 +45,6 @@ class ArticlesController < ApplicationController
   private
 
   	def article_params
-  		params.require(:article).permit(:title, :content)
+  		params.require(:article).permit(:title, :content, :category_id)
   	end
 end

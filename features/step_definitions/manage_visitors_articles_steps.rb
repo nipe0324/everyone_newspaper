@@ -1,17 +1,3 @@
-
-Given(/^I have no account$/) do
-	User.delete_all
-end
-
-Given(/^I have an account as "(.*?)", "(.*?)", "(.*?)"$/) do |name, email, password|
-  User.create!(name: name, email: email, password: password, password_confirmation: password)
-end
-
-Given(/^I have (\d+) article the title of which is "(.*?)" as "(.*?)"$/) do |number, title, email|
-  user = User.find_by(email: email)
-  user.articles.create!(title: title, content: "dummy")
-end
-
 Given(/^I do not login$/) do
 end
 
@@ -30,10 +16,10 @@ Given(/^Im on the new article page of "(.*?)"$/) do |email|
   visit new_user_article_path(user)
 end
 
-Given(/^Im on the edit article page of which is "(.*?)" as "(.*?)"$/) do |title, email|
+Given(/^Im on the edit article page \( "(.*?)" \) of "(.*?)"$/) do |title, email|
   user = User.find_by(email: email)
   article = Article.find_by(title: title)
-  visit new_user_article_path(user, article)
+  visit edit_user_article_path(user, article)
 end
 
 Given(/^Im on the update profile page of "(.*?)"$/) do |email|
@@ -52,12 +38,6 @@ When(/^I enter signup information as "(.*?)", "(.*?)", "(.*?)"$/) do |name, emai
   fill_in "パスワード",   		with: password
   fill_in "確認用パスワード", 	with: password
   click_button "アカウントを作成する"
-end
-
-When(/^I enter article information as "(.*?)", "(.*?)"$/) do |title, content|
-  fill_in "タイトル",  with: title
-  fill_in "本文",      with: content
-  click_button "記事を投稿する"
 end
 
 When(/^I enter login information as "(.*?)", "(.*?)"$/) do |email, password|

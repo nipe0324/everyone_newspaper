@@ -1,7 +1,45 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
+
+########################################################################
+# モデル作成
+########################################################################
+Given(/^I have no account$/) do
+  User.delete_all
+end
+
+Given(/^I have an account \( "(.*?)", "(.*?)", "(.*?)" \)$/) do |name, email, password|
+  User.create!(name: name, email: email, password: password, password_confirmation: password)
+end
+
+Given(/^I have an account as admin$/) do
+  @admin = FactoryGirl.create(:admin)
+end
+
+Given(/^I have no categories$/) do
+  Category.delete_all
+end
+
+Given(/^I have a category \("(.*?)"\)$/) do |category_name|
+  @category = FactoryGirl.create(:category, name: category_name)
+end
+
+# Given(/^I have an article of category_name \("(.*?)"\)$/) do |category_name|
+#   @user = FactoryGirl.create(:user)
+#   @category = FactoryGirl.create(:category, name: category_name)
+#   @article = FactoryGirl.create(:article, user: @user, category: @category)
+# end
+
+Given(/^I have an article \( "(.*?)", "(.*?)", "(.*?)" \) of user \( "(.*?)" \)$/) do |title, category_name, content, email|
+  category = FactoryGirl.create(:category, name: category_name)
+  user = User.find_by(email: email)
+  user.articles.create!(title: title, content: content, category: category)
+end
+
+########################################################################
 # Commonly used webrat steps
 # http://github.com/brynary/webrat
+########################################################################
 
 Given /^I am on "(.+)"$/ do |page_name|
   visit path_to(page_name)
@@ -24,7 +62,7 @@ When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
 end
 
 When /^I select "([^\"]*)" from "([^\"]*)"$/ do |value, field|
-  select(value, :from => field) 
+  select(value, :from => field)
 end
 
 # Use this step in conjunction with Rail's datetime_select helper. For example:
@@ -94,6 +132,10 @@ Then /^I should see "([^\"]*)"$/ do |text|
   expect(page).to have_content(text)
 end
 
+Then(/^I should see the link of "(.*?)"$/) do |link_name|
+  expect(page).to have_link link_name
+end
+
 Then /^I should not see "([^\"]*)"$/ do |text|
   expect(page).not_to have_content(text)
 end
@@ -113,4 +155,3 @@ end
 Then /^I should be on (.+)$/ do |page_name|
   URI.parse(current_url).path.should == path_to(page_name)
 end
-

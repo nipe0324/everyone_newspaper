@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   # ログインしてるユーザだけ、show, edit, updateにアクセスできる
   before_action :logined_user, only: [:index, :show, :edit, :update]
-  # 正しいユーザだけ、show, edit, updateにアクセスできる
-  before_action :correct_user, only: [:show, :edit, :update]
+  # 正しいユーザだけ、edit, updateにアクセスできる
+  before_action :correct_user, only: [:edit, :update]
   # 管理者だけ、indexを実行できる
   before_action :admin_user, only: :index
-  # 正しいユーザ、もしくは、管理者だけ、destroyできる
-  before_action :correct_or_admin_user, only: :destroy
+  # 正しいユーザ、もしくは、管理者だけ、showとdestroyできる
+  before_action :correct_or_admin_user, only: [:show, :destroy]
 
   def index
     @users = User.paginate(page: params[:page])

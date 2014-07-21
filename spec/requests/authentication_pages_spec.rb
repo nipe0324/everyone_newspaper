@@ -141,22 +141,46 @@ RSpec.describe "AuthenticationPages", :type => :request do
 				it { should have_title "ログイン" }
 			end
 
-      describe "submitting a DELETE request to the Users#destroy action" do
+      context "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
+        specify { expect(response).to redirect_to(root_path) }
+      end
+
+      context "visiting the Category#index" do
+      	before { visit categories_path }
+      	it { should have_title "ログイン" }
+      end
+
+      context "visiting the Category#edit" do
+      	let(:category) { FactoryGirl.create(:category) }
+      	before { visit edit_category_path(category) }
+      	it { should have_title "ログイン" }
+      end
+
+      context "submitting a POST request to the Category#create action" do
+        before { post categories_path }
+        specify { expect(response).to redirect_to(root_path) }
+      end
+
+      context "submitting a PATCH request to the Category#update action" do
+      	let(:category) { FactoryGirl.create(:category) }
+        before { patch category_path(category) }
+        specify { expect(response).to redirect_to(root_path) }
+      end
+
+      context "submitting a DELETE request to the Category#destroy action" do
+      	let(:category) { FactoryGirl.create(:category) }
+        before { delete category_path(category) }
         specify { expect(response).to redirect_to(root_path) }
       end
 		end
 	end
 
-	describe "login page" do
+	describe "login" do
 		before { visit login_path }
 
 		it { should have_title full_title("ログイン") }
 		it { should have_content "ログイン" }
-	end
-
-	describe "login" do
-		before { visit login_path }
 
 		context "with invalid information" do
 			before { click_button "ログイン" }
@@ -203,4 +227,6 @@ RSpec.describe "AuthenticationPages", :type => :request do
 			end
 		end
 	end
+
+
 end
