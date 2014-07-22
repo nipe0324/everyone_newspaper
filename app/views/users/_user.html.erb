@@ -1,7 +1,9 @@
 <li>
   <%= avatar_for user, size: 52 %>
-  <%= link_to user.name, user %> (<%= user.articles.count %>)
+  <%= link_to user.name, user %>
   | <%= user.email %>
+  | 投稿数: <%= user.articles.count %>
+  | 投票数: <%= user.total_votes %>
   <% if current_user.admin? && !current_user?(user) %>
   | <%= link_to "削除", user, method: :delete,
   	data: { confirm: "ユーザ#{user.name}を削除してもよろしいですか？"} %>

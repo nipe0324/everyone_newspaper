@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   # ログインしてるユーザだけがアクセスできる
   before_action :logined_user, except: :index
   # 正しくないユーザはアクセスできない
-  before_action :correct_user, except: :index
+  before_action :correct_user, except: [:index, :vote]
 
   def index
     @categories = Category.all
@@ -41,6 +41,16 @@ class ArticlesController < ApplicationController
     Article.find(params[:id]).destroy
     flash[:success] = "記事を削除しました。"
     redirect_to @user
+  end
+
+  def vote
+    vote = current_user.article_votes.build(value: params[:value], article_id: params[:id])
+    if vote.save
+      flash[:success] = "投票ありがとうございます。"
+    else
+      flash[:error] = "既に投票済みです。"
+    end
+    redirect_to :back
   end
 
   private

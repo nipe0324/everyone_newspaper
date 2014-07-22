@@ -9,6 +9,7 @@ class Article < ActiveRecord::Base
 	# 関連
 	belongs_to :user
 	belongs_to :category
+	has_many :article_votes
 
 	# 検証
 	validates :title, presence: true, length: { maximum: 40 }
@@ -20,4 +21,14 @@ class Article < ActiveRecord::Base
 
 	# スコープ
 	default_scope -> { order('created_at DESC') }
+
+	def self.by_votes
+		select('article.*, coalesce(value, 0) as votes').
+    joins('left join article_votes on article_id=articles.id').
+    order('votes desc')
+	end
+
+	def votes
+		read_attribute(:votes) || article_votes.sum(:value)
+	end
 end

@@ -255,7 +255,7 @@ form {
       width: 50%;
       font-size: 120%;
       margin-top: 10px;
-      margin-bottom: -5px;
+      margin-bottom: 0px;
       padding-top: 5px;
       border-top: 1px solid #eaeaea;
     }
@@ -291,6 +291,27 @@ form {
   border-radius: 5px;
 
   .tab-pane {
+
+    .pushed {
+
+    }
+
+    .label {
+      padding: 3px 5px;
+      margin: 0px 1px 5px 1px;
+    }
+    .title {
+      display: block;
+      font-size: 120%;
+    }
+    .timestamp,
+    .vote {
+      color: $grayLight;
+    }
+    .content {
+      display: block;
+      font-size: 90%;
+    }
 
     #newspaper-list {
       padding: 10px 0px;

@@ -29,11 +29,8 @@
         <% category.articles.each do |article| %>
         <ul>
           <li>
-            <p>
-              <span class="title label label-success"><%= article.title %></span>
-              <span class="author">written by <%= article.user.name %></span>
-              <span class="timestamp"> 投稿日：<%= time_ago_in_words article.created_at %>前</span>
-            </p>
+            <%= render 'articles/article_meta', article: article %>
+            <%= render 'shared/vote_info', article: article %>
             <p><%= article.content %></p>
           </li>
         </ul>
@@ -46,11 +43,8 @@
           <% if article.picture? %>
             <%= image_tag article.picture.url(:thumb) %>
           <% end %>
-          <p>
-            <span class="title label label-success"><%= article.title %></span>
-            <span class="author">written by <%= article.user.name %></span>
-            <span class="timestamp"> 投稿日：<%= time_ago_in_words article.created_at %>前</span>
-          </p>
+          <%= render 'articles/article_meta', article: article %>
+          <%= render 'shared/vote_info', article: article %>
           <p><%= article.content %></p>
         </div>
         <% end %> 

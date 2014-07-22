@@ -1,7 +1,7 @@
 <div class="category">
 	<p><%= category.name %></p>
 	<em>
-		- 投稿数：<%= category.articles.count %>件
+		投稿数：<%= category.articles.count %>件
 			| <%= link_to "編集", edit_category_path(category) %>
 			| <%= link_to "削除", category_path(category), method: :delete,
   	data: { confirm: "「#{category.name}」を削除してもよろしいですか？"} %> 

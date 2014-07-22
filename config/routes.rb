@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   match '/login',		to: 'sessions#new', via: 'get'
   match '/logout',	to: 'sessions#destroy', via: 'delete'
 
-  match '/newspaper',  to: 'articles#index', via: 'get'
+  match '/newspaper', to: 'articles#index', via: 'get'
+  match '/newspaper/:id/vote', to: 'articles#vote', via: 'post'
 
   resources :categories, except: [:new, :show]
 end

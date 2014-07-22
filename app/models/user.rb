@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 
 	# 関連
 	has_many :articles, dependent: :destroy
+	has_many :article_votes
 
 	# 検証
 	validates :name,		presence: true, length: { maximum: 50 }
@@ -33,6 +34,14 @@ class User < ActiveRecord::Base
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def total_votes
+  	ArticleVote.where(user_id: self.id).sum('value')
+  end
+
+  def can_vote_for?(article)
+  	article_votes.build(value: 1, article: article).valid?
   end
 
   private
