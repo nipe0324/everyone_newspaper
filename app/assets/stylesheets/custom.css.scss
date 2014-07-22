@@ -26,6 +26,10 @@ html {
   }
 }
 
+body {
+  font-family: "ヒラギノ明朝 Pro","Hiragino Mincho Pro";
+}
+
 section {
   overflow: auto;
 }
@@ -58,9 +62,9 @@ h1 {
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 1.0em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   text-align: center;
   font-weight: normal;
   color: $lightGray;
@@ -193,6 +197,14 @@ form {
 }
 
 /* 記事一覧 */
+
+.newspaper_top {
+  h1,
+  h2 {
+    margin: 0px;
+  }
+}
+
 .articles {
   list-style: none;
   margin: 10px 0 0 0;
@@ -258,12 +270,40 @@ form {
 }
 
 /* 新聞画面 */
+.article_views {
+  padding: 0 20px;
+  margin-bottom: 14px;
+  width: 100px;
+  font-weight: normal;
+  color: #444;
+  font-size: 12px;
+  background-color: #fafafa;  
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  .view {
+    padding-left: 5px;
+  }
+}
+
 .tab-content {
   background-color: #fafafa;
   border: 1px solid #d1d1d1;
   border-radius: 5px;
 
   .tab-pane {
+
+    #newspaper-list {
+      padding: 10px 0px;
+
+      ul {
+        list-style: none;
+
+        li {
+          border-bottom: 1px solid #d1d1d1;
+          margin-right: 15px;
+        }
+      }
+    }
     
     #masonry-container {
       padding: 10px;

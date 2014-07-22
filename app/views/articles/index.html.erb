@@ -1,5 +1,17 @@
-<h1>みんなの新聞</h1>
-<h2>Everyone's Newspaper</h2>
+<div class="newspaper_top">
+  <h1>みんなの新聞</h1>
+  <h2>- Everyone's Newspaper -</h2>
+</div>
+
+<div class="article_views">
+  表示方式:
+  <span class="view">
+    <%= link_to image_tag("grid.png", alt: "Grid view", width: "12x10"), newspaper_path, title: "Grid view" %>
+  </span>
+  <span class="view">
+    <%= link_to image_tag("list.png", alt: "List view", width: "15x10"), newspaper_path(view: "list"), title: "List view" %>
+  </span>
+</div>
 
 <div>
 <ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -11,23 +23,42 @@
 <div class="tab-content">
   <% @categories.each do |category| %>
   <div class="tab-pane" id="<%= category.name %>">
-    <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix">
-      <% category.articles.each do |article| %>
-      <div class="box col<%= rand(3)+2 %> effect">
-        <% if article.picture? %>
-          <%= image_tag article.picture.url(:thumb) %>
+
+    <% if @view_mode == "list" %>
+      <div id="newspaper-list" %>
+        <% category.articles.each do |article| %>
+        <ul>
+          <li>
+            <p>
+              <span class="title label label-success"><%= article.title %></span>
+              <span class="author">written by <%= article.user.name %></span>
+              <span class="timestamp"> 投稿日：<%= time_ago_in_words article.created_at %>前</span>
+            </p>
+            <p><%= article.content %></p>
+          </li>
+        </ul>
         <% end %>
-        <p>
-          <span class="title label label-success"><%= article.title %></span>
-          <span class="author">written by <%= article.user.name %></span>
-        </p>
-        <p><%= article.content %></p>
-      </div>
-      <% end %> 
-    </div>
-  </div>
+      </div><!-- /#newspaper_list -->
+    <% else %>
+      <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix">
+        <% category.articles.each do |article| %>
+        <div class="box col<%= rand(3)+2 %> effect">
+          <% if article.picture? %>
+            <%= image_tag article.picture.url(:thumb) %>
+          <% end %>
+          <p>
+            <span class="title label label-success"><%= article.title %></span>
+            <span class="author">written by <%= article.user.name %></span>
+            <span class="timestamp"> 投稿日：<%= time_ago_in_words article.created_at %>前</span>
+          </p>
+          <p><%= article.content %></p>
+        </div>
+        <% end %> 
+      </div><!-- /#masonry-container -->
+    <% end %>
+  </div><!-- /.tab-pane -->
   <% end %>
-</div>
+</div><!-- /.tab-content -->
 
 
 

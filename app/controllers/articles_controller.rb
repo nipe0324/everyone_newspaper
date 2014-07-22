@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
 
   def index
     @categories = Category.all
+    @view_mode = params[:view] # ""の場合 Grid, "list"の場合 List
   end
 
   def new
