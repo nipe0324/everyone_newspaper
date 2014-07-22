@@ -36,6 +36,11 @@ RSpec.describe "AuthenticationPages", :type => :request do
 				it { should have_title "ログイン" }
 			end
 
+			context "visiting the newspaper page" do
+				before { visit newspaper_path }
+				it { should have_content "Everyone's Newspaper" }
+			end
+
 			context "visiting the new article page" do
 				before { visit new_user_article_path(user, article) }
 				it { should have_title "ログイン" }

@@ -15,6 +15,7 @@ RSpec.describe User, :type => :model do
 	it { should respond_to :authenticate }
 	it { should respond_to :admin }
 	it { should respond_to :articles }
+  it { should respond_to :avatar }
 
 
 	it { should be_valid }

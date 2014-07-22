@@ -16,6 +16,7 @@ RSpec.describe Article, :type => :model do
 	it { should respond_to :category_id }
 	it { should respond_to :category }
 	it { expect(category).to eq category }
+	it { should respond_to :picture }
 
 	it { should be_valid }
 

@@ -30,11 +30,13 @@ Feature:  Manage Visitor's Articles
     When I fill in "タイトル" with "new_title"
     And I select "init_cate" from "カテゴリ"
     And I fill in "本文" with "new_content"
+    And I attach the file at "app/assets/images/picture/Aldrin_Looks_Back_at_Tranquility_Base.jpg" to "article_picture"
     And I press "記事を投稿する"
 
     Then I should see "new_title"
     And I should see "new_content"
     And I should see "init_cate"
+    And I should see the article image of "Aldrin_Looks_Back_at_Tranquility_Base.jpg"
 
   Scenario: Create invalid articles
     Given I have a category ("init_cate")

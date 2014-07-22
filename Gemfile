@@ -12,8 +12,11 @@ gem 'will_paginate'
 # Use Facor to creating data fo test
 gem 'faker'
 
-# User masonry for layout of newspaper page
+# Use masonry for layout of newspaper page
 gem 'masonry-rails'
+
+# Use paperclip to post a file to an article.
+gem 'paperclip'
 
 group :development, :test do
 	# Use sqlite3 as the database for Active Record

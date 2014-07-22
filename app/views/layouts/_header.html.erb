@@ -8,6 +8,7 @@
           <% if login? %>
           <li><%= link_to "記事を書く", new_user_article_path(current_user) %></li>
           <li style="margin-top:5px;"><%= avatar_for(current_user, { size: 30 }) %></li>
+          <li><%= link_to "マイページ", current_user %></li>
           <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               アカウント <b class="caret"></b>
@@ -18,7 +19,6 @@
               <li><%= link_to "カテゴリ一覧", categories_path %></li>
               <li class="divider"></li>
               <% end %>
-              <li><%= link_to "マイページ", current_user %></li>
               <li><%= link_to "設定", edit_user_path(current_user) %></li>
               <li class="divider"></li>
               <li><%= link_to "ログアウト", logout_path, method: "delete" %></li>

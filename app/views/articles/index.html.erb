@@ -1,5 +1,5 @@
-<% provide(:title, "新聞") %>
-<h1>新聞</h1>
+<h1>みんなの新聞</h1>
+<h2>Everyone's Newspaper</h2>
 
 <div>
 <ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -14,7 +14,13 @@
     <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix">
       <% category.articles.each do |article| %>
       <div class="box col<%= rand(3)+2 %> effect">
-        <p><%= article.title %> by <%= article.user.name %></p>
+        <% if article.picture? %>
+          <%= image_tag article.picture.url(:thumb) %>
+        <% end %>
+        <p>
+          <span class="title label label-success"><%= article.title %></span>
+          <span class="author">written by <%= article.user.name %></span>
+        </p>
         <p><%= article.content %></p>
       </div>
       <% end %> 
@@ -22,6 +28,8 @@
   </div>
   <% end %>
 </div>
+
+
 
 <script>
   $(function () {

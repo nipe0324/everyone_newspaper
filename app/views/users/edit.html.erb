@@ -13,7 +13,11 @@
 		<h3>アカウント更新</h3>
 		<%= form_for @user do |f| %>
       <%= render 'fields', f: f %>
-      <br>
+      <% if f.object.avatar? %>
+				<%= image_tag f.object.avatar.url(:thumb) %>
+			<% end %>
+			<%= f.file_field :avatar %>
+			<p style="color:red; margin-top:10px">Heroku上では画像のアップデートができません。</p>
 			<%= f.submit "更新する", class: "btn btn-success" %>
 		<% end %>
 			    <%= link_to "削除する", @user, method: :delete,

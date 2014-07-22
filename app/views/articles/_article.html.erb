@@ -1,6 +1,12 @@
+
 <li>
 	<span class="title"><span class="label label-info"><%= article.category.name %></span> <%= article.title %></span>
-	<span class="content"><%= article.content %></span>
+	<% if article.picture? %>
+	<span class="picture">
+			<%= image_tag article.picture.url(:thumb) %>
+	</span>
+	<% end %>
+	<span class="content"><%= simple_format article.content %></span>
 	<span class="timestamp">
 		投稿日：<%= time_ago_in_words article.created_at %>前
 		<% if current_user?(@user) || !current_user.admin? %>

@@ -1,9 +1,7 @@
 <% provide(:title, @user.name) %>
 <div class="row">
 	<aside class="span3">
-		<section>
-			<%= render 'shared/user_info' %>
-		</section>
+		<%= render 'shared/user_info' %>
 		<section>
 			<% if current_user?(@user) %>
 				<% if current_user.admin? %>

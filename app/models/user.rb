@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
 	# パスワード用のカラム
 	has_secure_password
 
+	# 写真を追加
+	has_attached_file :avatar,
+		:styles => { thumb: "130x130>" }, # 画像サイズを指定
+		:url  => "/assets/users/:id/:style/:basename.:extension", # 画像保存先のURL先
+		:path => "#{Rails.root}/public/assets/users/:id/:style/:basename.:extension" # サーバ上の画像保存先パス
+
 	# 関連
 	has_many :articles, dependent: :destroy
 
@@ -17,6 +23,8 @@ class User < ActiveRecord::Base
 	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
 		uniqueness: { case_sensitive: false }
 	validates :password, presence: true, length: { minimum: 6 }
+  validates_attachment :avatar, less_than: 1.megabytes, # ファイルサイズのチェック
+    content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] } # ファイルの拡張しチェック
 
 
   def User.new_remember_token

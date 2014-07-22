@@ -136,6 +136,10 @@ Then(/^I should see the link of "(.*?)"$/) do |link_name|
   expect(page).to have_link link_name
 end
 
+Then(/^I should see the article image of "(.*?)"$/) do |image_alt|
+  page.find('.picture img')['src'].should have_content image_alt
+end
+
 Then /^I should not see "([^\"]*)"$/ do |text|
   expect(page).not_to have_content(text)
 end
