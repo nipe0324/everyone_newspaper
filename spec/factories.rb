@@ -18,6 +18,6 @@ FactoryGirl.define do
 	end
 
 	factory :category do
-		sequence(:name) { |n| "category#{n}" }
+		sequence(:name) { |n| "cate#{n}" }
 	end
 end

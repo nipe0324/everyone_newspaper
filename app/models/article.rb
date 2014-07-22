@@ -13,7 +13,7 @@ class Article < ActiveRecord::Base
 
 	# 検証
 	validates :title, presence: true, length: { maximum: 40 }
-	validates :content, presence: true, length: { maximum: 1000 }
+	validates :content, presence: true, length: { maximum: 5000 }
 	validates :user_id, presence: true
 	validates :category_id, presence: true
   validates_attachment :picture, less_than: 1.megabytes, # ファイルサイズのチェック

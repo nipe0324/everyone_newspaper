@@ -26,8 +26,14 @@ RSpec.describe Article, :type => :model do
 	end
 
 	context "with title that is too long" do
-		before { @article.title = "a" * 41 }
-		it { should_not be_valid }		
+    it "should be valid" do
+      @article.title = "a" * 40
+      expect(@article).to be_valid
+    end
+		it "should_not be valid due to too long content" do
+      @article.title = "a" * 41
+      expect(@article).not_to be_valid
+    end
 	end
 
 	context "with blank content" do
@@ -36,8 +42,14 @@ RSpec.describe Article, :type => :model do
 	end
 
 	context "with content that is too long" do
-		before { @article.content = "a" * 1001 }
-		it { should_not be_valid }		
+    it "should be valid" do
+      @article.content = "a" * 5000
+      expect(@article).to be_valid
+    end
+		it "should_not be valid due to too long content" do
+      @article.content = "a" * 5001
+      expect(@article).not_to be_valid
+    end
 	end
 
 	context "when user_id is not present" do

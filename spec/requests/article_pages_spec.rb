@@ -5,7 +5,6 @@ RSpec.describe "Article pages", :type => :request do
   subject { page }
 
   let(:user) { FactoryGirl.create(:user) }
-  let!(:category) { FactoryGirl.create(:category) }
 
   before { login user }
   
@@ -14,7 +13,7 @@ RSpec.describe "Article pages", :type => :request do
 
     it { should have_content "Everyone's Newspaper" }
 
-    describe "category tabs" do
+    describe "tabs" do
       before(:all) do
         10.times { FactoryGirl.create(:category) }
       end
@@ -22,15 +21,65 @@ RSpec.describe "Article pages", :type => :request do
         Category.delete_all
       end
 
-      it "should show each tab" do
+      it "should see each tab" do
         Category.all.each do |category|
           expect(page).to have_selector("li", text: category.name)
+        end
+      end
+    end
+
+    describe "contents" do
+      let(:category) { FactoryGirl.create(:category) }
+      let!(:article) { FactoryGirl.create(:article, user: user, category: category) }
+      before { visit newspaper_path }
+      
+      it { should have_content article.title }
+      it { should have_content article.user.name }
+      it { should have_content article.content }
+    end
+
+    describe "vote" do
+      let(:category) { FactoryGirl.create(:category) }
+      let!(:article) { FactoryGirl.create(:article, user: user, category: category) }
+
+      context "with same user" do
+        before do
+          login user
+          visit newspaper_path
+        end
+
+        it { should_not have_content "like" }
+        it { should_not have_content "unlike" }
+      end
+
+      context "with other user" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          login other_user
+          visit newspaper_path
+        end
+        it { should have_content "like" }
+        it { should have_content "unlike" }
+
+        it "should be able to vote like" do
+          expect { click_link "like" }.to change(ArticleVote, :count).by(1)
+        end
+        it "should be able to vote unlike" do
+          expect { click_link "unlike" }.to change(ArticleVote, :count).by(1)
+        end
+
+        context "after voting" do
+          before { click_link "like" }
+          it { should have_success_message "投票ありがとうございます。" }
+          it { should_not have_content "like" }
+          it { should_not have_content "unlike" }
         end
       end
     end
   end
 
   describe "create article" do
+    let!(:category) { FactoryGirl.create(:category) }
     before { visit new_user_article_path(user) }
 
     it { should have_title full_title("記事を投稿") }
@@ -75,6 +124,7 @@ RSpec.describe "Article pages", :type => :request do
   end
 
   describe "update article" do
+    let!(:category) { FactoryGirl.create(:category) }
     let!(:article) { FactoryGirl.create(:article, user: user, category: category) }
     let!(:new_category) { FactoryGirl.create(:category, name: "新カテゴリ名") }
     before do
@@ -113,6 +163,7 @@ RSpec.describe "Article pages", :type => :request do
   end
 
   describe "delete article" do
+    let!(:category) { FactoryGirl.create(:category) }
     let!(:article) { FactoryGirl.create(:article, user: user, category: category) }
     before do
       login user

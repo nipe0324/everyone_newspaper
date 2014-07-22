@@ -1,13 +1,19 @@
-<div class="center hero-unit">
-  <h1>みんなの新聞へようこそ</h1>
-
-  <h2>
-    新聞社が新聞を作るのではなく、ユーザ自身が記事を書き「みんな新聞を作っていくサイト」です。
-  </h2>
-	<%= link_to "新聞を読む", newspaper_path, class: "btn btn-large btn-info" %>
-
-  <p>
-  	ユーザ登録することで記事を作成することができます。
-  </p>
-	<%= link_to "ユーザ登録", signup_path, class: "btn btn-large btn-success" %>
+<div id="home">
+  <div class="home-container">
+  	<div class="form-signup-home">
+			<%= form_for @user do |f| %>
+				<%= f.text_field :name, placeholder: "名前を入力して下さい。" %>
+				<%= f.email_field :email, placeholder: "メールアドレスを入力して下さい。"  %>
+				<%= f.password_field :password, placeholder: "パスワードを入力して下さい。" %>
+				<%= f.password_field :password_confirmation, placeholder: "確認用パスワードを入力して下さい。" %>
+				<%= f.submit "アカウントを作成する", class: "btn btn-large btn-success" %>
+			<% end %>
+			<p><%= link_to "ログイン？", login_path %></p>
+  	</div>
+    <h1 class="heading">みんなの新聞へようこそ</h1>
+    <p class="subheading">
+    	新聞社が新聞を作るのではなく、ユーザが記事を投稿し、ユーザ自身で新聞を作っていくサイトです。<br />
+    	<%= link_to "新聞を読む", newspaper_path %>
+    </p>
+  </div><!-- /.container -->
 </div>

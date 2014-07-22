@@ -1,5 +1,38 @@
 <% provide(:title, 'このサイトについて') %>
 <h1>このサイトについて</h1>
-<p>
-	このサイトについて説明します。
+<p style="text-align: center;">
+	新聞社が新聞を作るのではなく、ユーザ自身が記事を書き「みんな新聞を作っていくサイト」です。
 </p>
+
+<h4>機能一覧</h4>
+<ul style="font-size:90%; margin-bottom:40px;">
+	<li>
+		新聞閲覧機能…みんなで作成した新聞を閲覧することが可能です。表示形式として、グリッド表示とリスト表示があります。
+	</li>
+	<li>
+		ユーザ登録機能…一般ユーザの登録ができます。管理者ユーザの登録はできません。
+	</li>
+	<li>
+		記事投稿機能 <span class="label label-info">User</span> <span class="label label-warning">Admin</span>
+		… 記事を投稿することができます。写真のアップロード、記事の編集、削除もできます。マイページで投稿した記事を表示、編集、削除もできます。
+	</li>
+	<li>
+		like/unlike機能 <span class="label label-info">User</span> <span class="label label-warning">Admin</span>
+		…記事に対して、like か unlinke を投票できます。１記事１ユーザという制約があります。
+	</li>
+	<li>
+		カテゴリー管理機能 <span class="label label-warning">Admin</span>
+		…新聞のカテゴリーの追加、編集、削除ができます。
+	</li>
+	<li>
+		ユーザ管理機能 <span class="label label-warning">Admin</span>
+		…ユーザの一覧表示、ユーザのマイページ表示、ユーザの削除ができます。
+	</li>
+
+</ul>
+
+<small style="color: #999;">
+	<span class="label label-info">User</span> 一般ユーザとしてログインしてる時に使える機能<br />
+	<span class="label label-warning">Admin</span> 管理者としてログインしてる時に使える機能<br />
+	ラベルがない機能は、ログインしていなくても使えます。
+</small>

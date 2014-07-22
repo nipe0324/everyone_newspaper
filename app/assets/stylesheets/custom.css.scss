@@ -182,6 +182,48 @@ form {
   @extend .error;
 }
 
+/* ホーム */
+.home-container {
+  width: 980px;
+  margin-right: auto;
+  margin-left: auto;
+  &:before,
+  &:after {
+    display: table;
+    content: " ";
+  }
+  &:after {
+    clear: both;
+  }
+  .form-signup-home {
+    float: right;
+    width: 320px;
+    margin-left: 40px;
+  }
+
+  .heading {
+    margin-top: 0;
+    padding-top: 10px;
+    font-size: 55px;
+    font-weight: normal;
+    line-height: 1;
+    color: #5cb85c;
+    letter-spacing: -1px;
+  }
+
+  .subheading {
+    margin: 10px 0 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: black;
+
+    a {
+      font-weight: 500;
+      font-size: 130%;
+    }
+  }
+}
+
 /* ユーザ一覧 */
 .users {
   list-style: none;
@@ -219,7 +261,7 @@ form {
   }
 
   li {
-    float: clear;
+    clear: both;
     padding: 10px 0;
     border-top: 1px solid #e8e8e8;
   }
